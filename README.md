@@ -3,7 +3,7 @@
 ![Whitecube Solutions.png](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/Architecture.png)
 
 <details>
-<summary>Create DynamoDB table and Enable DynamoDB stream using Python Script</summary>
+<summary>Code: Create DynamoDB table and Enable DynamoDB stream using Python Script</summary>
 
 ```python
 import boto3
@@ -85,7 +85,7 @@ print("Data inserted successfully.")
 </details>
 
 <details>
-<summary>Ingest Data In DynamoDB Tables using Python Script</summary>
+<summary>Code: Ingest Data In DynamoDB Tables using Python Script</summary>
 
 ```python
 import boto3
@@ -233,7 +233,7 @@ def process_campaign_info(record, bucket_name):
 ![State machine](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/State%20Machine.png)
 
 <details>
-<summary>Code</summary>
+<summary>Code: State Machine</summary>
 
 ```json
 {
@@ -368,7 +368,7 @@ def process_campaign_info(record, bucket_name):
 ![Glue ETL](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/Glue%20ETL.png)
 
 <details>
-<summary>Code</summary>
+<summary>Code: Glue ETL</summary>
 
 ```python
 import sys
