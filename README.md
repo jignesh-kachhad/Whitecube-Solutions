@@ -2,7 +2,8 @@
 
 ![Whitecube Solutions.png](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/Architecture.png)
 
-## **Create DynamoDB table and Enable DynamoDB stream using Python Script**
+<details>
+<summary>Create DynamoDB table and Enable DynamoDB stream using Python Script</summary>
 
 ```python
 import boto3
@@ -81,8 +82,10 @@ for item in campaign_info_data:
 
 print("Data inserted successfully.")
 ```
+</details>
 
-## **Ingest Data In DynamoDB Tables using Python Script**
+<details>
+<summary>Ingest Data In DynamoDB Tables using Python Script</summary>
 
 ```python
 import boto3
@@ -137,8 +140,10 @@ dynamodb.update_table(
 
 print("Streams enabled successfully.")
 ```
+</details>
 
-## **Lambda Code: Capture Inserted and Modified Raw Data from DynamoDB and Store it into S3**
+<details>
+<summary>Lambda Code: Capture Inserted and Modified Raw Data from DynamoDB and Store it into S3</summary>
 
 ```python
 import json
@@ -220,11 +225,15 @@ def process_campaign_info(record, bucket_name):
         Body=json.dumps(transformed_record),
     )
 ```
+</details>
+
 
 ## Automating the whole pipeline using the Step function
 
 ![State machine](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/State%20Machine.png)
 
+<details>
+<summary>Code</summary>
 ```json
 {
   "Comment": "A description of my state machine",
@@ -351,10 +360,14 @@ def process_campaign_info(record, bucket_name):
   }
 }
 ```
+</details>
 
 ## **Glue ETL: Flatten, Join, Partitioned and Store Transformed Data in S3**
 
 ![Glue ETL](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/Glue%20ETL.png)
+
+<details>
+<summary>Code</summary>
 
 ```python
 import sys
@@ -467,3 +480,4 @@ TargetS3_node1719144875681 = glueContext.write_dynamic_frame.from_options(
 job.commit()
 
 ```
+</details>
