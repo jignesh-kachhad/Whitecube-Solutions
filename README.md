@@ -234,6 +234,7 @@ def process_campaign_info(record, bucket_name):
 
 <details>
 <summary>Code</summary>
+
 ```json
 {
   "Comment": "A description of my state machine",
