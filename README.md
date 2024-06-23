@@ -232,6 +232,8 @@ def process_campaign_info(record, bucket_name):
 
 ![State machine](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/State%20Machine.png)
 
+![SNS](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/SNS%20Email%20from%20AWS.png)
+
 <details>
 <summary>Code: State Machine</summary>
 
