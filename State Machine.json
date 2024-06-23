@@ -1,0 +1,101 @@
+{
+    "Comment": "A description of my state machine",
+    "StartAt": "Start_raw_data_Crawler",
+    "States": {
+        "Start_raw_data_Crawler": {
+            "Type": "Task",
+            "Parameters": {"Name": "crawl_raw_data"},
+            "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
+            "Next": "GetCrawler",
+        },
+        "GetCrawler": {
+            "Type": "Task",
+            "Parameters": {"Name": "crawl_raw_data"},
+            "Resource": "arn:aws:states:::aws-sdk:glue:getCrawler",
+            "Next": "Is_Running?",
+        },
+        "Is_Running?": {
+            "Type": "Choice",
+            "Choices": [
+                {
+                    "Variable": "$.Crawler.State",
+                    "StringMatches": "RUNNING",
+                    "Next": "Wait for 5 Sec",
+                }
+            ],
+            "Default": "Glue StartJobRun",
+        },
+        "Wait for 5 Sec": {"Type": "Wait", "Seconds": 5, "Next": "GetCrawler"},
+        "Glue StartJobRun": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::glue:startJobRun.sync",
+            "Parameters": {"JobName": "Transformation"},
+            "Next": "Glue_Job_Status",
+            "Catch": [
+                {"ErrorEquals": ["States.TaskFailed"], "Next": "Failed_Notification"}
+            ],
+        },
+        "Glue_Job_Status": {
+            "Type": "Choice",
+            "Choices": [
+                {
+                    "Variable": "$.JobRunState",
+                    "StringMatches": "SUCCEEDED",
+                    "Next": "Success_Notification",
+                }
+            ],
+            "Default": "Failed_Notification",
+        },
+        "Success_Notification": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::sns:publish",
+            "Parameters": {
+                "TopicArn": "arn:aws:sns:ap-south-1:126362963275:s3-arrival-notification",
+                "Message": "Glue job Execution Successful !!",
+            },
+            "Next": "Start_Transformed_data_Crawler",
+        },
+        "Start_Transformed_data_Crawler": {
+            "Type": "Task",
+            "Parameters": {"Name": "Crawl_transformed_data"},
+            "Resource": "arn:aws:states:::aws-sdk:glue:startCrawler",
+            "Next": "GetCrawler (1)",
+        },
+        "GetCrawler (1)": {
+            "Type": "Task",
+            "Parameters": {"Name": "Crawl_transformed_data"},
+            "Resource": "arn:aws:states:::aws-sdk:glue:getCrawler",
+            "Next": "is_running?",
+        },
+        "is_running?": {
+            "Type": "Choice",
+            "Choices": [
+                {
+                    "Variable": "$.Crawler.State",
+                    "StringMatches": "RUNNING",
+                    "Next": "Wait",
+                }
+            ],
+            "Default": "Final Notification",
+        },
+        "Final Notification": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::sns:publish",
+            "Parameters": {
+                "TopicArn": "arn:aws:sns:ap-south-1:126362963275:s3-arrival-notification",
+                "Message": "All processes are complete. You can now start querying in Athena.",
+            },
+            "End": true,
+        },
+        "Wait": {"Type": "Wait", "Seconds": 5, "Next": "GetCrawler (1)"},
+        "Failed_Notification": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::sns:publish",
+            "Parameters": {
+                "Message.$": "$",
+                "TopicArn": "arn:aws:sns:ap-south-1:126362963275:s3-arrival-notification",
+            },
+            "End": true,
+        },
+    },
+}
