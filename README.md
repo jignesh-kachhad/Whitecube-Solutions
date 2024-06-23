@@ -1,6 +1,6 @@
 # Whitecube-Solutions-Assignment
 
-![Whitecube Solutions.png](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/Architecture.png)
+![Whitecube Solutions.png](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/Glue%20ETL.py)
 
 ## **Create DynamoDB table and Enable DynamoDB stream using Python Script**
 
