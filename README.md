@@ -1,4 +1,32 @@
 # Whitecube-Solutions-Assignment
+<details>
+<summary>Overview</summary>
+
+I have designed and implemented an automated data pipeline using AWS services, specifically leveraging EventBridge Rules and Step Functions to meet all project requirements.
+
+1. **Data Ingestion and Storage**:
+    - The pipeline incrementally reads data (both INSERTED and MODIFIED records) from two DynamoDB tables: `user_Campaign` and `campaignInfo`.
+    - This data is ingested through a Lambda function, which processes the records and stores the raw data in an S3 bucket.
+
+2. **Data Transformation**:
+    - The raw data stored in S3 serves as the source for AWS Glue ETL jobs.
+    - Within AWS Glue, the `user_Campaign` data is flattened, and a new column `taskDeadline` is added by performing a join operation with the `campaignInfo` table based on `campaignID` and `taskID`.
+    - Necessary schema modifications are applied to ensure data consistency and integrity.
+    - The data is then partitioned using the `createdAt` column, facilitating efficient querying and storage.
+    - The transformed data is saved back to an S3 location.
+
+3. **Data Crawling and Querying**:
+    - An AWS Glue Crawler is used to catalog the transformed data stored in S3.
+    - The cataloged data is then made available for querying in Amazon Athena.
+
+4. **Notification System**:
+    - An SNS (Simple Notification Service) is integrated to monitor the ETL process.
+    - On completion of the ETL job, whether it succeeds or fails, an email notification is sent to inform me of the outcome.
+    - Additionally, when new data is ready for querying in Athena, a final notification email is sent to indicate that the data is available.
+
+This setup ensures a robust, automated, and scalable data pipeline that efficiently handles data ingestion, transformation, and querying, while also providing real-time notifications on the process.
+
+</details>
 
 ![Whitecube Solutions.png](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/Architecture.png)
 
