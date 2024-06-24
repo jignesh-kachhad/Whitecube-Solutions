@@ -1,4 +1,8 @@
 # Whitecube-Solutions-Assignment
+
+## Architecture
+![Whitecube Solutions.png](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/Architecture.png)
+
 <details>
 <summary>Overview</summary>
 
@@ -27,8 +31,6 @@ I have designed and implemented an automated data pipeline using AWS services, s
 This setup ensures a robust, automated, and scalable data pipeline that efficiently handles data ingestion, transformation, and querying, while also providing real-time notifications on the process.
 
 </details>
-
-![Whitecube Solutions.png](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/Architecture.png)
 
 <details>
 <summary>Code: Create DynamoDB table and Enable DynamoDB stream using Python Script</summary>
