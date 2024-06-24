@@ -1,4 +1,4 @@
-# Whitecube-Solutions-Assignment
+# KGeN DE Assignment
 
 ## Architecture
 ![Whitecube Solutions.png](https://github.com/jignesh-kachhad/Whitecube-Solutions/blob/main/Architecture.png)
